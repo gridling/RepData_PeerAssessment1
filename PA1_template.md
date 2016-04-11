@@ -46,10 +46,62 @@ for(i in 1:length(Date)){
 
 
 ```r
-hist(step.sum, breaks = 25, col = "lightblue", main = "Histogram of the Total Number of Steps Each Day", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+plot1 <- hist(step.sum, breaks = 25, col = "lightblue", main = "Histogram of the Total Number of Steps Each Day", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
 ```
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+
+```r
+print(plot1)
+```
+
+```
+## $breaks
+##  [1]     0  1000  2000  3000  4000  5000  6000  7000  8000  9000 10000
+## [12] 11000 12000 13000 14000 15000 16000 17000 18000 19000 20000 21000
+## [23] 22000
+## 
+## $counts
+##  [1]  2  0  1  1  1  2  1  2  5  2 10  6  6  4  2  5  0  1  0  0  1  1
+## 
+## $density
+##  [1] 3.773585e-05 0.000000e+00 1.886792e-05 1.886792e-05 1.886792e-05
+##  [6] 3.773585e-05 1.886792e-05 3.773585e-05 9.433962e-05 3.773585e-05
+## [11] 1.886792e-04 1.132075e-04 1.132075e-04 7.547170e-05 3.773585e-05
+## [16] 9.433962e-05 0.000000e+00 1.886792e-05 0.000000e+00 0.000000e+00
+## [21] 1.886792e-05 1.886792e-05
+## 
+## $mids
+##  [1]   500  1500  2500  3500  4500  5500  6500  7500  8500  9500 10500
+## [12] 11500 12500 13500 14500 15500 16500 17500 18500 19500 20500 21500
+## 
+## $xname
+## [1] "step.sum"
+## 
+## $equidist
+## [1] TRUE
+## 
+## attr(,"class")
+## [1] "histogram"
+```
+
+```r
+dev.copy(png, file = "plot1.png")
+```
+
+```
+## png 
+##   3
+```
+
+```r
+dev.off()
+```
+
+```
+## png 
+##   2
+```
 
 * Summary of daily step records
 
@@ -103,6 +155,24 @@ abline(v = peak.time, col = "red")
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
+```r
+dev.copy(png, file = "daily-frequency.png")
+```
+
+```
+## png 
+##   3
+```
+
+```r
+dev.off()
+```
+
+```
+## png 
+##   2
+```
+
 The peak time is at 835 of the day. 
 
 
@@ -121,6 +191,26 @@ The total numer of rows with NAs are 2304
 
 ```r
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 na.subset <- data[is.na(data$steps),]
 na2 <- merge(na.subset, MeanStep, by = "interval")
 Na2Mean <- data.frame(steps = na2$steps.y, date = na2$date, interval = na2$interval)
@@ -146,10 +236,62 @@ for(i in 1:length(Date.n)){
     step.median.n[i] <- median(data3$steps[data3$date == Date.n[i]])
 }
 
-hist(step.sum.n, breaks = 25, col = "pink", main = "Histogram of the Total Number of Steps Each Day with NA Replaced", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+plot2 <- hist(step.sum.n, breaks = 25, col = "pink", main = "Histogram of the Total Number of Steps Each Day with NA Replaced", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
 ```
 
 ![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+
+```r
+print(plot2)
+```
+
+```
+## $breaks
+##  [1]     0  1000  2000  3000  4000  5000  6000  7000  8000  9000 10000
+## [12] 11000 12000 13000 14000 15000 16000 17000 18000 19000 20000 21000
+## [23] 22000
+## 
+## $counts
+##  [1]  2  0  1  1  1  2  1  2  5  2 18  6  6  4  2  5  0  1  0  0  1  1
+## 
+## $density
+##  [1] 3.278689e-05 0.000000e+00 1.639344e-05 1.639344e-05 1.639344e-05
+##  [6] 3.278689e-05 1.639344e-05 3.278689e-05 8.196721e-05 3.278689e-05
+## [11] 2.950820e-04 9.836066e-05 9.836066e-05 6.557377e-05 3.278689e-05
+## [16] 8.196721e-05 0.000000e+00 1.639344e-05 0.000000e+00 0.000000e+00
+## [21] 1.639344e-05 1.639344e-05
+## 
+## $mids
+##  [1]   500  1500  2500  3500  4500  5500  6500  7500  8500  9500 10500
+## [12] 11500 12500 13500 14500 15500 16500 17500 18500 19500 20500 21500
+## 
+## $xname
+## [1] "step.sum.n"
+## 
+## $equidist
+## [1] TRUE
+## 
+## attr(,"class")
+## [1] "histogram"
+```
+
+```r
+dev.copy(png, file = "plot2.png")
+```
+
+```
+## png 
+##   3
+```
+
+```r
+dev.off()
+```
+
+```
+## png 
+##   2
+```
 When the NAs in step are replaced by mean steps of that spefic interval, the result is centralization of the histogram (towards the peak).
 
 * Summary of daily step records
@@ -186,7 +328,7 @@ summary(StepSummary.n)
 
 
 ```r
-weekdays <- c("??Ÿæ?Ÿä?€", "??Ÿæ?Ÿä??", "??Ÿæ?Ÿä??", "??Ÿæ?Ÿå??", "??Ÿæ?Ÿä??")
+weekdays <- c("¬P´Á¤@", "¬P´Á¤G", "¬P´Á¤T", "¬P´Á¥|", "¬P´Á¤­")
 
 data3$weekday <- factor(weekdays(as.Date(data3$date)) %in% weekdays, levels = c(TRUE, FALSE), labels = c("weekday", "weekend"))
 ```
@@ -210,4 +352,22 @@ g + geom_line(size = 1) + facet_grid(weekday~.) + labs(x = "Time interval in a d
 ```
 
 ![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+
+```r
+dev.copy(png, file = "compare.png")
+```
+
+```
+## png 
+##   3
+```
+
+```r
+dev.off()
+```
+
+```
+## png 
+##   2
+```
 

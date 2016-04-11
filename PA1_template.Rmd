@@ -36,7 +36,10 @@ for(i in 1:length(Date)){
 * Histogram of total number of steps each day
 
 ```{r}
-hist(step.sum, breaks = 25, col = "lightblue", main = "Histogram of the Total Number of Steps Each Day", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+plot1 <- hist(step.sum, breaks = 25, col = "lightblue", main = "Histogram of the Total Number of Steps Each Day", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+print(plot1)
+dev.copy(png, file = "plot1.png")
+dev.off()
 ```
 
 * Summary of daily step records
@@ -66,6 +69,9 @@ peak.time <- t[which(interval.step == max(interval.step))]
 plot(t, interval.step, type = "l", main = "Average Steps in 5 Minutes Interval Across All Days", col = "blue", xlab ="Time in a day (24 hours)", ylab = "Average steps")
 
 abline(v = peak.time, col = "red")
+
+dev.copy(png, file = "daily-frequency.png")
+dev.off()
 ```
 
 The peak time is at `r peak.time` of the day. 
@@ -108,7 +114,10 @@ for(i in 1:length(Date.n)){
     step.median.n[i] <- median(data3$steps[data3$date == Date.n[i]])
 }
 
-hist(step.sum.n, breaks = 25, col = "pink", main = "Histogram of the Total Number of Steps Each Day with NA Replaced", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+plot2 <- hist(step.sum.n, breaks = 25, col = "pink", main = "Histogram of the Total Number of Steps Each Day with NA Replaced", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+print(plot2)
+dev.copy(png, file = "plot2.png")
+dev.off()
 ```
 When the NAs in step are replaced by mean steps of that spefic interval, the result is centralization of the histogram (towards the peak).
 
@@ -125,7 +134,7 @@ summary(StepSummary.n)
 * Make a new factor variable 
 
 ```{r}
-weekdays <- c("??Ÿæ?Ÿä?€", "??Ÿæ?Ÿä??", "??Ÿæ?Ÿä??", "??Ÿæ?Ÿå??", "??Ÿæ?Ÿä??")
+weekdays <- c("¬P´Á¤@", "¬P´Á¤G", "¬P´Á¤T", "¬P´Á¥|", "¬P´Á¤­")
 
 data3$weekday <- factor(weekdays(as.Date(data3$date)) %in% weekdays, levels = c(TRUE, FALSE), labels = c("weekday", "weekend"))
 ```
@@ -144,5 +153,8 @@ colnames(data.w.mean) <- c("weekday", "interval", "mean.step")
 library(ggplot2)
 g <- ggplot(data.w.mean, aes(x = interval, y = mean.step, color = weekday))
 g + geom_line(size = 1) + facet_grid(weekday~.) + labs(x = "Time interval in a day", y = "Mean steps in 5 minutes interval", title = "Mean Steps in Each Time Interval During Weekday and Weekend")
+
+dev.copy(png, file = "compare.png")
+dev.off()
 ```
 
