@@ -47,9 +47,10 @@ for(i in 1:length(Date)){
 
 ```r
 plot1 <- hist(step.sum, breaks = 25, col = "lightblue", main = "Histogram of the Total Number of Steps Each Day", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+print(plot1)
 ```
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+![plot of chunk unnamed-chunk-3](figure/plot1.png)
 
 ```r
 print(plot1)
@@ -153,7 +154,7 @@ plot(t, interval.step, type = "l", main = "Average Steps in 5 Minutes Interval A
 abline(v = peak.time, col = "red")
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-5](figure/daily-frequency.png)
 
 ```r
 dev.copy(png, file = "daily-frequency.png")
@@ -237,9 +238,10 @@ for(i in 1:length(Date.n)){
 }
 
 plot2 <- hist(step.sum.n, breaks = 25, col = "pink", main = "Histogram of the Total Number of Steps Each Day with NA Replaced", xlab = "Total number of steps each day", ylab = "Frequency", xlim = c(0,25000))
+print(plot2)
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png)
+![plot of unnamed-chunk-8](figure/plot2.png)
 
 ```r
 print(plot2)
@@ -351,7 +353,7 @@ g <- ggplot(data.w.mean, aes(x = interval, y = mean.step, color = weekday))
 g + geom_line(size = 1) + facet_grid(weekday~.) + labs(x = "Time interval in a day", y = "Mean steps in 5 minutes interval", title = "Mean Steps in Each Time Interval During Weekday and Weekend")
 ```
 
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-12](figure/compare.png)
 
 ```r
 dev.copy(png, file = "compare.png")
